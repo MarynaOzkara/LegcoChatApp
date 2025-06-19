@@ -1,10 +1,16 @@
 import { ThemeProvider, useTheme } from "@/context/theme-context";
 import { ClerkLoaded, ClerkProvider, useAuth } from '@clerk/clerk-expo';
 import { tokenCache } from '@clerk/clerk-expo/token-cache';
+import { ConvexReactClient } from "convex/react";
+import { ConvexProviderWithClerk } from "convex/react-clerk";
 import { router, Slot, useSegments } from "expo-router";
 import { StatusBar } from "expo-status-bar";
+import { useEffect } from "react";
 import "../global.css";
-import { Fragment, useEffect } from "react";
+
+const convex = new ConvexReactClient(process.env.EXPO_PUBLIC_CONVEX_URL!, {
+  unsavedChangesWarning: false,
+})
 
 
 function Layout() {
@@ -25,10 +31,10 @@ function Layout() {
     }
   }, [isSignedIn, isLoaded, segments])
   return (
-  <Fragment>
+  <ConvexProviderWithClerk useAuth={useAuth} client={convex}>
     <Slot/>
     <StatusBar style = {isDark ? "light" : "dark"}/>
-  </Fragment>)
+  </ConvexProviderWithClerk>)
 }
 
 export default function RootLayout() {
