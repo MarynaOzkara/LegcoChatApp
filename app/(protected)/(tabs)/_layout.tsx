@@ -1,13 +1,14 @@
 import { useTheme } from "@/context/theme-context";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { BlurView } from "expo-blur";
 import { Tabs } from "expo-router";
 import React from "react";
 import { View } from "react-native";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 const TabLayout = ()=>{
     const {isDark} = useTheme();
-    return <Tabs screenOptions={{
+    return <Tabs 
+    screenOptions={{
         headerShown: false,
         tabBarStyle: {
             position: "absolute",
@@ -53,8 +54,8 @@ const TabLayout = ()=>{
             paddingTop: 8,
             paddingBottom: 4
         },
-        tabBarActiveBackgroundColor: isDark ? "#60a5fa" : "#3b82f6",
-        tabBarActiveTintColor: isDark ? "#6b7280": "#9ca3af",
+        tabBarActiveTintColor: isDark ? "#60a5fa" : "#3b82f6",
+        tabBarInactiveTintColor: isDark ? "#6b7280": "#9ca3af",
         tabBarLabelStyle: {
             fontSize: 12,
             fontWeight: "600",
@@ -118,6 +119,12 @@ const TabLayout = ()=>{
               />
             </View>
           ),
+        }}
+      />
+      <Tabs.Screen
+        name="(modals)/new-chat"
+        options={{
+          title: "New Chat",
         }}
       />
     </Tabs>
